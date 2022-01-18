@@ -252,3 +252,100 @@ Algunos dicen que puede existir una 5ta regla de Forma Normal, la cual consiste 
 usar joins para volver la información a su estado original. Sin embargo esto es 
 unicamente hecho para revisión humana.
 
+## PlatziBlog II:
+
+Hemos cambiado el diagrama físico para que los atributos estuvieran en listas y estos tuvieran su tipo de dato. 
+Se ha hecho mayor incapie en las relaciones entre cada Entidad.
+
+Este proceso se ha hecho en el proyecto de Restaurante también.
+
+## RDBMS y RDB
+
+Son las siglas de Relational Data Base y Relational Data Base Management System. Solo eso, ya.
+Las explicadas RDBMS son casí todas de Oracle, empezando por su propia DB Oracle, MySQL y PostgreSQL.
+
+## Instalación de una RDBMS
+
+Para practicar vamos a usar una RDBMS en nuestro sistema local, esto ya que es lo más practico para practicar y aprender. 
+Pero en la industria y trabajos de IT. No se va a usar un sistema local, talvez un servidor o inclusive la nube, por ende 
+es importante aprender a usar ambos ambientes.
+
+El RDBMS que vamos a usar es MySQL, el cual es gratituo y abierto. Ademas de ser usado muchisimo en todo el mundo.
+
+### Windows
+Para instalar MySQL vamos a simplemente ir a su página web. Vamos a descargar el instalador, existen dos tipos de estos:
+
+- Web:
+	Pesa menos, pero tiene que descargar los recursos y otros desde el navegador o la web
+- Community:
+	Pesa más, pero descarga todos los recursos.
+
+Despues de ejecutar el intalador se nos abrira un menu para instalarlo. 
+Sera la licencia, basada en código abierto.
+
+Podemos instalarlo completo o a diferentes paquetes que el instalador nos otroga, 
+pero en el curso vamos a hacer una instalación custom. Para 
+así evitar descargar varias cosas inecesarias por ahora.
+
+Vamos a instalar:
+
+- MySQL Server 5.6 x64 o x84
+	el x64 o x84 depende de tu sistema operativo
+- MySQL Workbench 8.0 
+	Una GUI que vamos a usar para tener una mejor visualización del código
+
+Despues de descargar los elementos, nos va a pedir si vamos a usar MySQL cómo sevidor, programador o usuario.
+Y ponerle una contraseña a un usuario, generalmente root. Si alguien llega a obtener la 
+contraseña de root, puede modificar, añadir o borrar datos en la db.
+
+### Mac
+
+Para descargar en Mac, vamos a tener que descargar el Server y el Workbench por individual, buscando los instaladores en 
+su página web. Tambien se debe configurar el usuario root, ya que MySQL server en Mac nos da una contraseña por defecto.
+
+### Linux
+
+Para descargar en Linux, sorpresivamente podemos descargar el instalador desde la web de MySQL, pero algunas veces podemos 
+descargarlo cómo si fuera un paquete más.
+
+sudo apt install mysql-server
+sudo apt install mysql-workbench
+
+Despues se usa/configura usando mysql en la terminal.
+
+## MySQL Workbench
+
+MySQL Workbench es una GUI de bases de datos de MySQL, hay varias, pero esta es la base de MySQL.
+
+Para usarla vamos a crear una conección nueva dandole a el signo de +. En el apartado de MySQL Connections.
+Donde vamos a configurar y a darle un nombre, por ahora solo eso.
+
+Pero por ahora solo vamos a abrir el Local Conection que esta por defecto.
+
+Para hacer una Base de Datos, vamos a ir a el menu de la izquierda de Schemas, click derecho y en create new Schema.
+
+Y ahí vamos a hacer varios ejercicios del curso.
+
+## Servicios Administrados
+
+Los servicios administrados, cómo explicados anteriormente, son servicos de mantenimiento de servidores para nuestra base de datos. 
+En los cuales nosotros no debemos preocuparnos por los problemas físicos del servidor, esto tambien se puede conocer cómo nube web.
+
+Vamos a usar el Servicio Administrado de Google Cloud, bueno el profe, yo no.
+
+Vamos a crear el proyecto dandole un Id o un nombre, vamos a ir a el menu de la 
+izquierda, vamos a buscar en el apartado de storage SQL. Si no tenemos hecho 
+ninguna instancia, vamos a crear una de MySQL. 
+
+Le ponemos un Id o nombre a la base de datos, un password para el usuario root.
+Despues de crearlo vamos a poder ver el servidor en el que esta nuestra base de datos.
+Y vamos a esperar a que se termine de crear en los data centers de google.
+
+Una vez creados, podemos ir a el apartado de databases para crear una database, quien lo diria.
+Y el apartado de conecciones podemos usar nuestro navegador para usar una herramienta llamada cloud shell, 
+lo que nos permitira usar el servidor de MySQL usando una terminal en la cloud.
+Esta necesita un poco de tiempo para verificar que si vamos a hacer cosas buenas y ademas de 
+verificaciones como las contraseñas y otros.
+
+más tarde se va a hacer un ejercico acá.
+
