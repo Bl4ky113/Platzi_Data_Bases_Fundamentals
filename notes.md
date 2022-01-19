@@ -349,3 +349,125 @@ verificaciones como las contraseñas y otros.
 
 más tarde se va a hacer un ejercico acá.
 
+## Historia de SQL
+
+El SQL o Structured Query Lenguage. Es el lenguaje standar a predilección de 
+la gran mayoria de bases de datos en el mundo de tech. SQL surge de la 
+necesitad de tener un metodo para obtener datos y que este metodo sea 
+standarizado para poder comunicar bases de datos con otras bases de datos sin 
+tener que hacer programas y softwares raros. 
+
+Para entonces se ha venido utilizando en casí todos los tipos de bases de 
+datos, pero hay algunos que usan NOSQL, no es que no usen SQL, estos significan
+Not Only S Q L, tales cómo la DB de Cassandra. Big Data en google y otros.
+
+Estos no son totalmente nuevos o diferentes a SQL, es más la gran mayoria toma
+cómo base a SQL. 
+
+## DDL 
+
+SQL cómo es un standar puede dividirse en partes, una de estas es DDL o 
+
+Data 
+Definition
+Language
+
+En el cual nos ayuda a crear la base, cimientos de la bases de datos.
+El DDL tiene comandos cómo:
+
+- Create:
+	Crear diferentes elementos cómo tablas, vistas, indices, entre otras
+- Alter:
+	Alterar los elementos anteriores cómo tablas.
+- Drop:
+	Suelta o Borra elementos anteriores. Toca tener mucho cuidado ya que se puede borrar todos los datos.
+	Puede salirte muy caro el hacer un mal drop, y lo malo es que depronto no sea dinero la deuda.
+
+Con estos comandos vamos a poder manejar diferentes elementos o grupos, 
+una lista más clara de estos son:
+
+- Database:
+	Las DB o Schemas son el repositorio de datos de nuestro proyecto.
+- Tables: 
+	La proyección de los datos que hemos visto de forma teorica a un lenguaje SQL
+- Views:
+	La misma proyección de los datos de la DB, pero ya de una forma entendible para 
+	un ser humano.
+
+Por Ejemplo: 
+	Para hacer una DB vamos a usar:
+	
+	CREATE DATABASE o SCHEMA nombre_db;
+	Dependiendo si necesita usar DATABASE o SCHEMA
+
+	USE DATABASE nombre_db;
+	Importante para usar SQL en la consola.
+
+	Para crear una tabla vamos a usar:
+
+	CREATE TABLE nombre_tabla (
+		columna TYPE_DATA DATA_CONSTRAINS,
+		...
+	);
+
+	Tecnicamente cómo lo estabamos haciendo en el 
+	esquema físico de la db.
+
+	Sin embargo el GUI de MySQL o el mismo MySQL nos 
+	da unos nuevos Contrains para los datos, siendo los que 
+	puedo ver:
+
+	- Auto Increment:
+		Incrementa automaticamente con cada row
+	- Unasigned:
+		Tipo de dato Unasigned
+	- Binary:
+		Tipo de dato Binario
+	- Zero Fill:
+		llenar de 0 los valores de la columna
+	- Generated
+		No dice nada. :P.
+
+	Esto tiene una aparecia visual más intiuitiva al usar la GUI, pero personalmente
+	no me gusta.
+
+	Para evitar re crear la misma Database, table o view podemos hacer uso de los commandos (?
+	depues de CREATE y el tipo de elemento
+
+	IF NOT EXISTS 
+
+	O si queremos solo modificarlo vamos a usar
+
+	CREATE ... OR REPLACE ...
+
+	Asi evitaremos problemas y errores hechos por horrores
+
+	Para crear views vamos a hacer: 
+
+	CREATE VIEW nombre_view AS 
+		SELECT ...
+		FROM ... 
+		WHERE ...
+
+	Solo ponemos el nombre y unos comandos de SQL que aun no hemos visto, pero
+	estos son para obtener una información de la base de datos.
+
+	El Comando ALTER nos permite hacer diferentes modificaciones, generalmente, a tablas.
+	Este tiene unos subcomandos parecidos a los DDL que son:
+
+	ADD:
+		Añade la modificación
+	CHANGE:
+		Cambia el elemento dados por la modificación
+		Debemos escribir el nombre de la columna y despues el nuevo o mismo nombre. Y las modificaciones.
+	DROP:
+		Borra los elementos dados por la modificación
+	
+	Para usar DROP fuera del ALTER, vamos a simplemente usado cómo si fuera CREATE, pero 
+	para totalmente lo contrario
+
+	DROP ELEMENT nombre_elemento; // Muerte subita
+
+	Si estamos en una GUI nos va a primero advertir que no deberiamos intentar eso, o almenos sin mirar que estamos
+	haciendo. Pero si llegamos hacerlo desde un script o la terminal, nos va ejecutar el comando sin nada, sin 
+	permiso ni perdon.
