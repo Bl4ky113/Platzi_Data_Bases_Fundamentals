@@ -393,9 +393,8 @@ una lista más clara de estos son:
 - Views:
 	La misma proyección de los datos de la DB, pero ya de una forma entendible para 
 	un ser humano.
-
-Por Ejemplo: 
-	Para hacer una DB vamos a usar:
+ 
+Para hacer una DB vamos a usar:
 	
 	CREATE DATABASE o SCHEMA nombre_db;
 	Dependiendo si necesita usar DATABASE o SCHEMA
@@ -403,71 +402,264 @@ Por Ejemplo:
 	USE DATABASE nombre_db;
 	Importante para usar SQL en la consola.
 
-	Para crear una tabla vamos a usar:
+Para crear una tabla vamos a usar:
 
 	CREATE TABLE nombre_tabla (
 		columna TYPE_DATA DATA_CONSTRAINS,
 		...
 	);
 
-	Tecnicamente cómo lo estabamos haciendo en el 
-	esquema físico de la db.
+Tecnicamente cómo lo estabamos haciendo en el 
+esquema físico de la db.
 
-	Sin embargo el GUI de MySQL o el mismo MySQL nos 
-	da unos nuevos Contrains para los datos, siendo los que 
-	puedo ver:
+Sin embargo el GUI de MySQL o el mismo MySQL nos 
+da unos nuevos Contrains para los datos, siendo los que 
+puedo ver:
 
-	- Auto Increment:
-		Incrementa automaticamente con cada row
-	- Unasigned:
-		Tipo de dato Unasigned
-	- Binary:
-		Tipo de dato Binario
-	- Zero Fill:
-		llenar de 0 los valores de la columna
-	- Generated
-		No dice nada. :P.
+- Auto Increment:
+	Incrementa automaticamente con cada row
+- Unasigned:
+	Tipo de dato Unasigned
+- Binary:
+	Tipo de dato Binario
+- Zero Fill:
+	llenar de 0 los valores de la columna
+- Generated
+	No dice nada. :P.
 
-	Esto tiene una aparecia visual más intiuitiva al usar la GUI, pero personalmente
-	no me gusta.
-
-	Para evitar re crear la misma Database, table o view podemos hacer uso de los commandos (?
-	depues de CREATE y el tipo de elemento
+Esto tiene una aparecia visual más intiuitiva al usar la GUI, pero personalmente
+no me gusta.
+Para evitar re crear la misma Database, table o view podemos hacer uso de los commandos (?
+depues de CREATE y el tipo de elemento
 
 	IF NOT EXISTS 
 
-	O si queremos solo modificarlo vamos a usar
+O si queremos solo modificarlo vamos a usar
 
 	CREATE ... OR REPLACE ...
 
-	Asi evitaremos problemas y errores hechos por horrores
+Asi evitaremos problemas y errores hechos por horrores
 
-	Para crear views vamos a hacer: 
+Para crear views vamos a hacer: 
 
 	CREATE VIEW nombre_view AS 
 		SELECT ...
 		FROM ... 
 		WHERE ...
 
-	Solo ponemos el nombre y unos comandos de SQL que aun no hemos visto, pero
-	estos son para obtener una información de la base de datos.
+Solo ponemos el nombre y unos comandos de SQL que aun no hemos visto, pero
+estos son para obtener una información de la base de datos.
 
-	El Comando ALTER nos permite hacer diferentes modificaciones, generalmente, a tablas.
-	Este tiene unos subcomandos parecidos a los DDL que son:
+El Comando ALTER nos permite hacer diferentes modificaciones, generalmente, a tablas.
+Este tiene unos subcomandos parecidos a los DDL que son:
 
-	ADD:
-		Añade la modificación
-	CHANGE:
-		Cambia el elemento dados por la modificación
-		Debemos escribir el nombre de la columna y despues el nuevo o mismo nombre. Y las modificaciones.
-	DROP:
-		Borra los elementos dados por la modificación
+- ADD:
+	Añade la modificación
+- CHANGE:
+	Cambia el elemento dados por la modificación
+	Debemos escribir el nombre de la columna y despues el nuevo o mismo nombre. Y las modificaciones.
+- DROP:
+	Borra los elementos dados por la modificación
 	
-	Para usar DROP fuera del ALTER, vamos a simplemente usado cómo si fuera CREATE, pero 
-	para totalmente lo contrario
+Para usar DROP fuera del ALTER, vamos a simplemente usado cómo si fuera CREATE, pero 
+para totalmente lo contrario
 
 	DROP ELEMENT nombre_elemento; // Muerte subita
 
-	Si estamos en una GUI nos va a primero advertir que no deberiamos intentar eso, o almenos sin mirar que estamos
-	haciendo. Pero si llegamos hacerlo desde un script o la terminal, nos va ejecutar el comando sin nada, sin 
-	permiso ni perdon.
+Si estamos en una GUI nos va a primero advertir que no deberiamos intentar eso, o almenos sin mirar que estamos
+haciendo. Pero si llegamos hacerlo desde un script o la terminal, nos va ejecutar el comando sin nada, sin 
+permiso ni perdon.
+
+## DML 
+
+DML o Data Manipulation Language, es el sublenguaje de SQL que nos permitira 
+manipular la información, cómo lo dice su nombre.
+
+Teniendo cómo DDL unos comandos principales, cuales son:
+- Insert
+	Agrega un nuevo dato o tupla a nuestra db o tabla
+- Update
+	Actualiza o cambia los datos de nuestra db o tabla	
+- Delete
+	Elimina o borra los datos de nuestra db o tabla
+- Select
+	Es un comando que nos va a permitir seleccionar datos 
+	de nuestra db, generalmente para mostrarla o usarla 
+	cómo output.
+
+
+Para usar Insert vamos a usar:
+	INSERT INTO name_tabla (columna_1, columna_n ...)
+	VALUES 
+		("valor_columna_1", "valor_columna_n", ...),
+		(...);
+
+Se pueden agregar varios valores si usamos comas entre cada tupla con los datos.
+Es imporatante tener orden al Insertar los datos. Ya que si no ingresamos un 
+valor de una columna este ser va a volver NULL o el DEFAULT que hayamos puesto.
+
+Para usar UPDATE vamos a usar:
+	UPDATE nombre_tabla
+	SET columna_1 = "valor_1", columna_n = "valor_n"
+	WHERE condicional;
+
+La condicional es extremadamente importante para así evitar cambiar todos los datos de 
+la db. Y aun así, debemos tener cuidado, ya que podemos hacer una condicional que 
+pueda afectar a toda o a una gran parte de la DB. 
+Lo bueno es que algunas GUIs nos van a avisar antes de eso, y otras directamente 
+no van a funcionar o van a correr el script.
+
+Para evitar eso lo mejor es intentar hacer condicionales donde se usen IDs o PK.
+
+Para uasr DELETE vamos a usar:
+	DELETE FROM nombre_tabla
+	WHERE condicional;
+
+Va a ser lo mismo que UPDATE, pero con mayor mayor riesgo, ya que esto es Eliminar 
+totalmente los datos. 
+
+Para usar SELECT vamos a usar:
+	SELECT columna_1, columna_n 
+	FROM nombre_tabla
+	WHERE condicional
+
+Simplemente nos va a mostrar o hacer un output de los valores de las columnas dentro de la 
+tabla pedida, el WHERE es opcional pero algunas veces necesario y util para obtener información
+más precisa.
+
+## Que tan Standar es SQL?
+
+Como SQL surigio cómo el Standar para hacer queries a las DBs, esto ha seguido 
+siendo así hasta el día moderno, esto nos permite poder utilizar diferentes tipos 
+de DBs y usar el mismo código SQL o cómo minimo agregar unas minimas variaciones.
+
+Por ejemplo de MySQL a PostgreSQL, de lo que llevamos, es igual el código.
+
+## Pasar los Diagramas Físicos a MySQL
+
+Simplemente vamos a usar las herramientas ya aprendidas del GUI o los comandos 
+que ya hemos ejecutado, 
+
+Pero para ir haciendo las tablas, debemos
+empezar por las tablas sin dependencias o las que no necesitan Foreign Keys. Ya 
+despues de tener las dependencias de esas tablas, podemos ir formandolas usando 
+un menu de abajo en la sección de columns, Indexes, Foreign Keys ...
+
+Para hacer las tablas de interconección, cómo la tabla de posts-tags en 
+Platzi Blog, solo los vamos a hacer cómo si fueran un tabla llena de foreign keys
+
+Un truco que se puede hacer en el workbench es ir a el menu de arriba de Database, 
+escoger la opción de Reverse Engineer, conectar la db, seleccionar el schema y darle a aceptar 
+para hacer un diagrama físico de la db.
+
+Esto nos puede ayudar a entender una db a la que no tengamos un diagrama físico pre hecho o 
+que ya haya iniciado su uso.
+
+## PlatziBlog III
+
+Listo, ahora que tenemos las bases de SQL para usarla en MySQL, vamos a hacer uso de su workbench para 
+hacer la DB de PlatziBlog, hecho en los ejericicios, y la DB del Restaurante. 
+
+## Querys
+
+Los Querys son una herramienta muy fundamental para poder usar una DB. Estas escencialmente nos
+van a dar diferentes tipos de datos mediante consultas a la base de datos. 
+
+Una buena consulta nos puede dar información vital para el uso comercial, empresarial o inclusive
+tecnologica, cómo el machinelearning, técnicas de marketing u otros.
+
+### Estructura
+
+Son la forma en las que estructuramos las preguntas a las DBs. La estructura de esta pregunta puede 
+ser sencilla o muy compleja, vamos a ver por escalas.
+
+El minimo de un Query es:
+
+	SELECT ... FROM ...
+
+Donde SELECT es donde nosotros elegimos que datos vamos a tomar, estos separados por comas. 
+FROM es de donde sacaremos los datos, generalmente una tabla. 
+
+Y en la gran mayoria de casos vamos a hacer uso de WHERE, que es un comando que nos 
+permite hacer uso de condicionales para restringir los datos que obtengamos.
+
+Donde se pueden usar operadores relacionales.
+
+	SELECT ... FROM ...
+	WHERE num > otro-num
+
+Siendo este query la forma más sencilla de obtención de datos utiles.
+
+### SELECT 
+
+Con el comando SELECT se puede elegir los datos que necesitamos, puediendo elegir todos 
+los datos y columnas disponibles usando:
+
+	SELECT * FROM tabla
+
+Donde vamos a usar FROM para obtener todos los datos de una tabla, y que se muestren cómo tal.
+
+Para elegir data selectivamente por cada columna, solo vamos a poner el nombre de la columna despues del
+SELECT:
+
+	SELECT columna_1, columna_n FROM tabla
+
+Pero algunas veces las columnas tienen nombres muy especificos o que se puedan refundir entre si, para eso
+podemos usar el comando AS para mostrar los datos en la tabla de una forma especifica. 
+Usandolo así:
+
+	SELECT columna_1 AS nuevo_nombre FROM tabla.
+
+Entonces en el query, se van a mostrar los datos con el titulo de nuevo-nombre
+
+Pero el SELECT tambien tiene unas functions que nos van a ayudar, por ejemplo:
+COUNT es una function que nos va a permitir contar los registros dentro del 
+Query.
+
+### FROM
+
+El Comando FROM, es el comando complementario de SELECT, ya que sin ambos, los Querys no funcionan. 
+Este Comando nos permite definir de donde vamos a traer los datos. Vamos a usarlo de la siguiente 
+forma sencilla:
+
+SELECT ... FROM tabla
+
+Donde tabla es el lugar o la tabla donde sale la información para usar o mostrar el Query.
+
+Un comando extremada mente util y complementario de FROM es JOIN, el que nos va  apermitir hacer 
+conjuntos con nuestras tablas y poder hacer Querys usando mucha más información.
+
+Estos conjuntos vienen en diferentes tipos, dependiendo del tipo de unión. Siendo estos: 
+
+Para explicar de una forma mejor los grupos, vamos a tener dos:
+1. grupo A de usuarios
+2. grupo B de posts
+
+Cómo lo definimos en nuestra DB, los usuarios pueden hacer posts y los posts tienen cómo dueños
+a un usuario. Siendo esto por user-id, haciendolo tener un factor en común.
+
+- Joins de Diferencia
+	- Left Join Normal:
+		Trae todos los datos de la tabla A o la de la izquierda
+	- Left Join Excluyente(?:
+		Trae los datos de la Tabla A que no estan en la Tabla B o derecha
+	- Right Join N:
+		Lo mismo, pero se cambia de lado
+	- Right Join E:
+		Lo mismo, pero se cambia de lado
+
+- Join de Inner y Outer
+	- Inner Join:
+		Traer todos los datos en comun entre ambas tablas
+	- Outer Join de uninión:
+		Trae todos los datos de ambas tablas. Cómo el outer join no es 
+		standar de MySQL, vamos a tener que hacer un poco de mariobas para 
+		hacerlo. 
+	- Outer Join de Diferencia Asimetrica:
+		Trae los datos que no tienen nada en común entre ambas tablas, vamos a 
+		tener que hacer un poco de mariobas para hacerlo.
+
+	Para algunas de la mariobas, vamos a tener que hacer 2 o más selects. Para que nos 
+	queden en un solo query podemos hacer uso del Comando UNION.
+
+	
