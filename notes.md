@@ -753,4 +753,50 @@ Esto se puede hacer con varias funciones cómo
 - avg
 - entre otras.
 
+### Order By 
+
+Order By es un comando que nos va a permitir ordenar los datos dependiendo de su valor, 
+ya sea ascending o descending. 
+
+- Si el valor es númerico es de menor a mayor o alrevez.
+- Si el valor es string es por orden alfabetico o alrevez.
+- Si el valor es fecha es de vieja a reciente o alrevez.
+
+SELECT * FROM tabla
+ORDER BY columna ASC | DESC
+
+El alrevez se define usando descending y ascending es default.
+
+Si necesitamos limitar el número de valores que queremos mirar, vamos a poder 
+definirlo con LIMIT, definiendo el número exacto de datos a mostrar
+
+SELECT ... FROM ...
+ORDER BY ... ...
+LIMIT 5
+
+Se van a mostrar solo las primeras 5 filas del resultado
+
+### Having
+
+Si intentamos hacer un Query usando WHERE cuando hacemos un 
+GROUP BY, nos va a salir error, esto es porque el WHERE ocurre antes 
+de que los grupos se creen, haciendo que intente filtrar nada.
+
+Para evitar esto se usa HAVING que no tiene ninguna diferencia con 
+WHERE, excepto que esta si esta hecha para funcinar con GROUP BY.
+
+Esta debe ir debajo de GROUP BY o no va a funcionar.
+
+## Orden del Query
+
+SELECT ... columnas, funciones GROUP BY
+FROM ... tablas
+WHERE ... condicionales para filtrar datos
+	AND otras condicionales
+... tipo de join JOIN ... tabla ON ... foreign key
+GROUP BY ... columna
+HAVING ... condicionales para filtrar datos de GROUP BY
+ORDER BY ... columna ... ASC o DESC
+LIMIT ... numero de datos a mostrar
+
 
