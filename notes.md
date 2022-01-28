@@ -662,4 +662,95 @@ a un usuario. Siendo esto por user-id, haciendolo tener un factor en común.
 	Para algunas de la mariobas, vamos a tener que hacer 2 o más selects. Para que nos 
 	queden en un solo query podemos hacer uso del Comando UNION.
 
-	
+### WHERE 
+
+El Comando WHERE es un comando que nos va a permitir filtrar los 
+datos de un Query. Permitiendonos obtener datos más precisos y acomodados 
+a lo que necestamos. Para poder filtrar los datos se pueden usar diferentes
+operadores lógicos, cómo:
+- mayor, menor o igual que:
+	>, <, <=, >=. Son operadoes que nos 
+	van a permitir comparar datos númericos y fechas dependiendo de 
+	un valor, devolviendo solo los que sean verdaderos 
+	a el operador. 10 > 5 => True. 10 > 12 => False.
+	2020 > 1996 => True. 2020 < 2022 => True.
+
+- igual no desigual que:
+	=, !=. Son operadores que nos 
+	permiten mirar si un dato es igual a un valor, 
+	muy util al momento de hacer filtros de datos 
+	con texto. Pero su contraparte nos permite mirar 
+	que datos no son iguales, o desiguales, a un valor, 
+	saltandose este si llega a dar True. 
+	"perro" = "perro" => True. "perro" != "gato" => True.
+
+- LIKE:
+	LIKE. Es un operador que nos va a permitir hacer un tipo de busqueda 
+	dentro de un string, haciendo uso de palabras clave. Ejemplo, 
+	necesitamos un dato que sea "hola", para eso hacemos lo más sencillo
+	LIKE "hola", casi cómo si fuera un igual.
+	Pero para buscar algo que inicie con "hola", vamos a hacer: LIKE "hola%".
+	Que termine en hola "%hola", que contenga hola "%hola%". Y así.
+
+	No importa si esta en mayusculas o si tenga acentos el dato.
+
+- BETWEEN ... AND:
+	BETWEEN ... AND. Es un operador que nos permite elegir un rango, de valores 
+	que puede tener un dato, sea númerico o de fechas. BETWEEN 2010 AND 2015 => valores 
+	entre 2010 y 2015, y ellos mismos.
+
+Para mejorar la sintaxis de busqueda con WHERE podemos convertir o obtener solo partes 
+de los datos usando diferentes funciones, generalmente usado con fechas:
+
+- HOUR(dato)
+- DAY(dato)
+- MONTH(dato)
+- YEAR(dato)
+
+Y así con cada valor de cada dato que necesitemos especificamente, es util cuando no 
+necesitamos toda la fecha, si no solo el mes o el año.
+
+- IS NULL:
+	Verifica si el valor es NULL o nulo, o vacio. No se puede usar el 
+	operador de igual, dado a que no es un tipo de dato, entonces no se 
+	puede hacer nada con él directamente. Es como si miraramos que una 
+	canasta de huevos tenga más huevos que nada, no se puede porque es nada.
+
+- AND:
+	Es un operador lógico el cual nos permite concatenar más operadores, 
+	es decir diferentes tipos de filtrados en un solo WHERE.
+
+### GROUP BY
+
+Es un comando que nos permite agrupar datos de una forma funcional dentro de la DB, 
+usando diferentes funciones para poder contar, sumar, restar, entre otros, los datos.
+
+Para explicarlo bien se deben hacer ejercicios puntuales:
+
+
+La funcion COUNT, nos permite contar el número de registros de los datos de select,
+ejemplo:
+
+	SELECT *, COUNT(*) FROM tabla
+
+Nos va a contar todos los registros disponibles en la tabla, pero 
+si cambiamos el primer * por una columna y agregamos...
+
+	SELECT estatus, COUNT(*) FROM tabla
+	GROUP BY estatus
+
+Nos va a identificar los valores que puede tener estatus, en nuestro caso activo 
+y inactivo. Y va a contar cuantos registros hay en cada grupo.
+
+	estatus  | count(*)
+	activo   | 17
+	inactivo | 5
+
+Esto se puede hacer con varias funciones cómo
+- min
+- max
+- sum
+- avg
+- entre otras.
+
+
