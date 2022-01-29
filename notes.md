@@ -610,7 +610,12 @@ Usandolo así:
 
 	SELECT columna_1 AS nuevo_nombre FROM tabla.
 
-Entonces en el query, se van a mostrar los datos con el titulo de nuevo-nombre
+Entonces en el query, se van a mostrar los datos con el titulo de nuevo-nombre.
+Pero esto se puede hacer con varios valores y tipos de datos, casi con cualquiera:
+- tablas
+- funciones de GROUP BY en SELECT
+- tablas en JOINs
+
 
 Pero el SELECT tambien tiene unas functions que nos van a ayudar, por ejemplo:
 COUNT es una function que nos va a permitir contar los registros dentro del 
@@ -661,6 +666,9 @@ a un usuario. Siendo esto por user-id, haciendolo tener un factor en común.
 
 	Para algunas de la mariobas, vamos a tener que hacer 2 o más selects. Para que nos 
 	queden en un solo query podemos hacer uso del Comando UNION.
+
+	Para hacer un Join de 3 o más tablas, simplemente las vamos a ir escribiendo debajo de cada JOIN.
+	Util con tablas intermediaras cómo posts_etiquetas
 
 ### WHERE 
 
@@ -747,11 +755,25 @@ y inactivo. Y va a contar cuantos registros hay en cada grupo.
 	inactivo | 5
 
 Esto se puede hacer con varias funciones cómo
-- min
-- max
-- sum
-- avg
+- min: minimo valor
+- max: maximo valor
+- sum: suma valor
+- avg: valor promedio
 - entre otras.
+
+Lista de funciones importantes o interesantes:
+
+- GROUP CONCAT:
+	Es una función que nos permite concatenar 
+	los valores que se encuentren en el grupo, 
+	es decir: Cuando contemos que un post tiene 
+	4 etitquetas, podemos poner el nombre de 
+	esas etiquetas en un dato separadas por comas.
+
+	Se puede personalizar usando:
+	- DISTINCT: Toma el dato a concatenar
+	- ORDER BY: Un order by de los datos
+	- SEPARATOR: el seaparador que vamos a usar, generalmente una coma
 
 ### Order By 
 
@@ -789,14 +811,27 @@ Esta debe ir debajo de GROUP BY o no va a funcionar.
 
 ## Orden del Query
 
-SELECT ... columnas, funciones GROUP BY
-FROM ... tablas
-WHERE ... condicionales para filtrar datos
-	AND otras condicionales
-... tipo de join JOIN ... tabla ON ... foreign key
-GROUP BY ... columna
-HAVING ... condicionales para filtrar datos de GROUP BY
-ORDER BY ... columna ... ASC o DESC
-LIMIT ... numero de datos a mostrar
+La info que queremos mostrar : SELECT ... columnas, funciones GROUP BY
+De donde vamos a sacar la info: FROM ... tablas
+Los filtros de la info: WHERE ... condicionales para filtrar datos
+				AND otras condicionales
+De donde más vamos a sacar la info que tenga corelación: ... tipo de join JOIN ... tabla ON ... foreign key
+La info que me interesa agrupar: GROUP BY ... columna
+Los filtros de la info que agrupe: HAVING ... condicionales para filtrar datos de GROUP BY
+El orden que me insteresa: ORDER BY ... columna ... ASC o DESC
+El numero de info que necesito: LIMIT ... numero de datos a mostrar
+
+## Nested Queries
+
+Algunas veces vamos a tener que hacer Nested Queries o Queries que llaman a otros queris. Es decir una 
+función recursiva. Esto puede tener varios problemas ya que entramos en el campo de Big O notation. Entonces 
+puede que nuestro Query se vuelva mucho más ineficiente al usarlo de una forma, y que cuando nuestros 
+datos se acerquen al infinito, no se ejecute de una forma eficiente el Query.
+
+Donde se van a usar más estos Queries son para obtener valores máximos o minimos de una columna, cómo edades o fechas.
+O para crear sub tablas que van a ser utilizadas para hacerles un Query sobre estas. 
+
+Para hacer un Nested Query solo tenemos que hacer uso de parentesis, talvez identación, y el Query en cuestión.
+
 
 
