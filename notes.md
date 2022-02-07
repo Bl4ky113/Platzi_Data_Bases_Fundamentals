@@ -616,7 +616,6 @@ Pero esto se puede hacer con varios valores y tipos de datos, casi con cualquier
 - funciones de GROUP BY en SELECT
 - tablas en JOINs
 
-
 Pero el SELECT tambien tiene unas functions que nos van a ayudar, por ejemplo:
 COUNT es una function que nos va a permitir contar los registros dentro del 
 Query.
@@ -833,5 +832,195 @@ O para crear sub tablas que van a ser utilizadas para hacerles un Query sobre es
 
 Para hacer un Nested Query solo tenemos que hacer uso de parentesis, talvez identación, y el Query en cuestión.
 
+## Bases de Datos NO-Relacionales
 
+Las bases de datos NO-Relacionales son muy diferentes en su estructura frente a las normales.
+Teniendo inclusive diferentes tipos, siendo estos:
+
+- Clave - Valor:
+	Es una db basada en Hash Maps o Mapas de diccionarios, 
+	requiriendo un index para poder acceder a los diccionarios
+	cuales generalmente tienen una gran cantidad de datos.
+	Tienen problemas al intentar acceder a datos sin los indexs 
+	de estos dicts. 
+
+	- Dynamo DB con AWS
+	- Cassandra con Facebook
+- Basadas en Documentos:
+	Es una db la cual almacena sus datos en objetos JSON y XML, siendo 
+	un poco más defininas que las db de Clave-Valor. Son la más usadas 
+	fuera de las bases de datos relacionales. Se puede guardar y 
+	almacenar la información de una forma sencilla, sin embargo no 
+	se puede acceder información de una forma sencilla usando 
+	Queries muy complejos.
+
+	- Mondongo DB
+	- Firestore
+- Basadas en Grafos:
+	Es una db en la cual su estrutura esta basada en la teoria de grafos. 
+	La cual permite hacer que los datos o nodos tengan relaciones muy complejas 
+	con otros nodos, llegando a ser todos los nodos con todos los nodos. Son 
+	muy usadas en el ambito de AI y machine learning.
+
+	- neo4J
+	- TITAN
+- En Memoria:
+	Es una db la cual los datos disponibles estan en la Memoria RAM, haciendo 
+	que su escritura, lectura y obtención de datos sea rápida, pero por el 
+	problema de tener que mantener sincronización con un almacenamiento 
+	más seguro cómo un disco duro, tener que llevar toda la información a 
+	la Memoria cada vez que el servidor se apague, entre otros.
+
+	- Memcached
+	- Redis
+- Optimizadas para busquedas:
+	Es una db la cual esta optmizada unicamente para hacer busquedas de datos con el 
+	uso de Queries más complejos, pero sin sacrificar tanto al hacerlos. 
+	Algunas dbs pueden ser usadas para IA y machine learning.
+
+	- Big Query de Google
+	- ElasticSearch
+
+Todas estos tipos de dbs no relacionales son especializados para cada 
+problema o necesidad, pero algunas de estas empiezan a dar errores, faltas 
+o fallas al momento de escalarlas a grandes niveles.
+
+## Servicios Administrados y Jerarquía de Datos
+
+En las DBs NR basadas en documentos tienen una jerarquía de datos diferentes, pero parecida a 
+la de las DBs Reacionales.
+
+Siendo ambas:
+
+Relacionales: DB > Tabla > Tupla o Fila, de datos
+NR Basada en Documentos: DB > Colleción > Documentos
+
+La DB es la DB. las collections son lo equivalente a las tablas.
+Los documentos van a contener todos los datos, estos
+datos se guardan en el standar o lenguaje JSON, el cual se usa en el manejo de 
+datos por parte de APIs REST, lenguajes de programación y otros.
+
+## Top Level Collection Con Firebase
+
+Primero debemos tener una cuenta y proyecto para mirar los Top Level Collection en Firebase. Para 
+eso simplemente nos vamos a registrar con pocos datos, sin ningun pago hasta que tengamos un 
+uso intensivo de la cloud de firebase.
+
+Vamos a crear el proyecto con un nombre unico en el mundo o nos va a dar error.
+Despues de crearla en el menu de storage, vamos a poder crear una Top level Collection.
+
+Cual es la diferencia entre una collection y las top level collection?
+Cuando creamos una db, se van a almacenar los datos cómo si fueran un 
+directorio de un OS.
+
+Partiendo desde la raiz o root /
+Hasta diferentes directorios y otros /.../.../.../
+Las top colection son aquellas que estan en el nivel de root, 
+es decir:
+	/top_lvl_collection/...
+
+Siendo parecidas a las entidades o tablas de las RDBMS.
+
+Al crear la collection, nos va a pedir definir las columnas que van a tener 
+cada documento.
+
+## Creando Y Borrando Documentos en FireStore
+
+Los tipos de datos de Firestore cambian un poco, inciando por los IDs. 
+Generalmente vamos a hacer un autoincrement siendo desde 1 hasta el número de datos, 
+pero con Firestore, el realiza un hash con diferente información random para crear un 
+id unico y no secuencial. Quedando algo así:
+
+S475AS13
+
+Los tipos de datos no cambian mucho, pero si son mucho más permisivos.
+
+- string: para cualquier texto, grande o pequeño
+- number: para cualquier número, entero, decimal, grande o pequeño
+- boolean: booleanos True o False
+- null: valor de valor no existente
+- timestamp: dato con fecha y hora hasta con milisegundos
+- geopoint: dato con información geologica
+- reference: lo equivalente de una foreign key, para obtener datos de un documento en otra collection o en la misma collection
+
+Pero tambien agrega diferentes tipos de datos para organizar de una forma más 
+sencilla. 
+
+- map: es un mapa de datos el cual se puede parecer a un objeto JSON, creando en escencia 
+otro documento dentro de nuestro documento.
+- array: es un arreglo de datos el cual hace una lista de datos con un identificador númerico 
+secuencial, un array normal de la vida.
+
+## Colections y SubColections
+
+Ademas de las Top Lvl Colections, existen otros tipos llamados subcolections. 
+Los cuales no van a existir que el mismo nivel de la base de datos.
+
+Estas subcolections son colecciones de archivos que van dentro de otros 
+archivos, siendo así la jerarquía de datos:
+
+db > topColection > doc > subcolection > doc
+
+Estas subcolections su uso varia dependiendo de lo que necesitemos, 
+si necesitamos una coletion que va a ser muy llamada y importante, lo 
+mejor es dejarla cómo toplvlcolection. Pero si es unica los documentos de 
+la subcolection. Ejemplo:
+
+En nuestros posts necesitamos las etiquetas, pero no siempre vamos a tener que 
+traer todas las etiquetas y elegir solo las que queremos, para eso vamos a hacer 
+un subcolection y vamos a poner en sus documentos las etiquetas que necesitemos 
+para nuestro posts. Siendo parecido a las tablas de conección muchas : muchas.
+
+El elegir subcolection cuando son unicos los datos, nos va a ahorra datos y 
+velocidad.
+El elegir topcolection cuando son muy usados los datos, nos va a ahorrar datos,
+procesos y velocidad.
+Pero si llegamos a elegir mal, estos beneficios van a ser nulos y antes se 
+van a presentar diferentes problemas y deficiencias.
+
+## Bases de Datos en La Vida Real
+
+Las bases de datos en la vida real tienen variados usos, pero principalmente
+debemos mirar que no hay una que pueda satisfacer todas la necesidades posibles.
+Haciendo que cada base de datos se especialice en su propio tipo de db y funciones. 
+
+Existen diferentes hambitos, lugares y formas de usar las dbs, algunas serían:
+
+## Big Data 
+
+El Big Data son cantidades masivas de información, la cual una RDMS no pueda darle talla 
+haciendo que los procesos tomen horas en realizarse y que estos puedan fallar en el 
+final. 
+
+Entonces Big Data tiene unas herramientas que permiten solucionar los problemas de las 
+cantidades de información. Que para tenerlo más claro no es mucha mucha información si no 
+mucha información en poco tiempo.
+
+Teniendo que descargar y cargar información y datos masivamente en poco tiempo.
+Algunas opciones pueden ser Cassandra, pero esta solo es 
+fuerte en el proceso de descarga y cargar, ya que al hacer algunos 
+querys falla un poco.
+
+## Data Warehouse
+
+El Data Warehouse, puede parecerse al Big Data, pero lo mayor que cambia es que la capacidad de 
+los datos es incrementada varias veces y que los datos no son hechos en muy poco tiempo. 
+Los datos van a ser almacenados cómo datos historicos, siendo utiles para diferentes
+preguntas apartir de los datos. 
+
+Algunas dbs de estos tipos permiten almacenar absurdas cantidades de datos, pero no 
+permite hacer querys de una forma sencilla o eficiente. 
+
+Los datos de la DW, no van a ser datos recientes o que necesiten para el uso, si no datos
+historicos y casi legacy.
+
+## Data Mining
+
+Algunas veces que hay varios varios datos de legacy, ya sea en un D.Warehouse o en otra db. 
+Estos datos empiezan a ser estorbosos o algunos que sean necesitados, y esten perdidos en 
+todo el monton de datos, son obtenidos, filtrados y encontrados por los Data Miners. Y 
+poder obtener o hacer unos datos a partir de patrones de los datos del D.Warehouse. 
+
+Para hacer esto se necesita de diferentes herramientas técnologicas y conocimiento 
+sobre los datos, aunque esto se puede hacer usando herramientas. Unos de estos siendo ETL.
 
